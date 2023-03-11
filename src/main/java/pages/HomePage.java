@@ -13,7 +13,7 @@ public class HomePage {
 
     //click on login button
     public void clickLoginButton(){
-        driver.findElement(By.id("<a href=\"/login\" class=\"ico-login\">Log in</a>")).click();
+        driver.findElement(By.linkText("Log in")).click();
 
     }
 
