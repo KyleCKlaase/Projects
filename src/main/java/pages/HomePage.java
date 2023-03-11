@@ -7,13 +7,13 @@ public class HomePage {
     private WebDriver driver;
 
     public HomePage(WebDriver driver){
-        driver = driver;
+       this.driver = driver;
 
     }
 
     //click on login button
     public void clickLoginButton(){
-        driver.findElement(By.linkText("Log in")).click();
+       driver.findElement(By.xpath("//input[@value='Log in']")).click();
 
     }
 
