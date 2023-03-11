@@ -2,15 +2,17 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import pages.HomePage;
-import pages.LoginPage;
+import pages.*;
 
 import java.time.Duration;
 
 
 public class TestClass1 {
-    private LoginPage loginPage;
     private HomePage homePage;
+    private LoginPage loginPage;
+    private CartAdd cartAdd;
+    private ViewCart viewCart;
+    private RemoveItem removeItem;
     private WebDriver driver;
 
     @BeforeEach
@@ -18,11 +20,14 @@ public class TestClass1 {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         driver.get("https://demowebshop.tricentis.com/");
 
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
+        cartAdd = new CartAdd(driver);
+        viewCart = new ViewCart(driver);
+        removeItem = new RemoveItem(driver);
 
 
     }
@@ -31,7 +36,9 @@ public class TestClass1 {
 
         homePage.clickLoginButton();
         loginPage.login();
-
+        cartAdd.addToCart();
+        viewCart.cart();
+        removeItem.remove();
 
 
     }
