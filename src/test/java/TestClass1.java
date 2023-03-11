@@ -6,7 +6,7 @@ import pages.HomePage;
 import pages.LoginPage;
 
 
-public class TestClass {
+public class TestClass1 {
     private LoginPage loginPage;
     private HomePage homePage;
     private WebDriver driver;
