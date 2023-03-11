@@ -5,6 +5,8 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import pages.HomePage;
 import pages.LoginPage;
 
+import java.time.Duration;
+
 
 public class TestClass1 {
     private LoginPage loginPage;
@@ -16,10 +18,12 @@ public class TestClass1 {
         WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
         driver.manage().window().maximize();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         driver.get("https://demowebshop.tricentis.com/");
 
         homePage = new HomePage(driver);
         loginPage = new LoginPage(driver);
+
 
     }
     @Test
