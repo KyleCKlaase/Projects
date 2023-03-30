@@ -1,34 +1,50 @@
 package unittest;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
-
-import javax.sql.PooledConnection;
+import pages.HomePage;
+import pages.LoginPage;
 
 
 public class UnitTest {
+    private HomePage homePage;
+    private LoginPage loginPage;
+    //using variable "email"to hold string value
+    private String email = "kylecalvinklaase@outlook.com";
+    //using variable "password"to hold string value
+    private String password = "Password123";
     private WebDriver driver;
-    @Test
-    public void testOne(){
-
+    @BeforeAll
+    public void setUp(){
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
+        driver.manage().window().maximize();
         driver.get("https://demowebshop.tricentis.com/");
+
+    }
+    @Test
+    public void testOne(){
+        homePage.navigateTo();
+        homePage.clickLogin();
+        loginPage.ValidateLoginButton();
+        //Encapsulation of email and password values(reusing)
+        loginPage.Login(email,password);
+
 
         driver.findElement(By.xpath("//a[text()='Log in']")).click();
 
-        //Validating if Login button is displayed
-        //Boolean=true and false
-        //Declaring a variable "result"
-       boolean result = driver.findElement(By.xpath("//input[@value='Log in']")).isDisplayed();
-       Assertions.assertTrue(result);
-        System.out.println(result);
+
+
+
+
 
 
         driver.close();
@@ -36,27 +52,6 @@ public class UnitTest {
 
 
     }
-    @Test
-    public void testtwo(){
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(options);
-        driver.get("https://www.inspiredtesting.com/contact-us-edinburgh-2023");
-
-
-
-
-        //This is called declaring a variable
-        boolean result;
-        result = true;
-
-        result =false;
-        System.out.println(result);
-
-
-
-
 
 
     }
@@ -64,4 +59,4 @@ public class UnitTest {
 
 
 
-}
+
