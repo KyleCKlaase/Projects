@@ -1,60 +1,42 @@
 package unittest;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
-import pages.HomePage;
-import pages.LoginPage;
+import base.BaseTest;
+import org.junit.jupiter.api.*;
 
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
 
-public class UnitTest {
-    private HomePage homePage;
-    private LoginPage loginPage;
+//inheritance use 'extends' tag to inherit which class
+public class UnitTest extends BaseTest {
+
     //using variable "email"to hold string value
-    private String email = "kylecalvinklaase@outlook.com";
+    protected String email = "kylecalvinklaase@outlook.com";
     //using variable "password"to hold string value
-    private String password = "Password123";
-    private WebDriver driver;
-    @BeforeAll
-    public void setUp(){
-        WebDriverManager.chromedriver().setup();
-        ChromeOptions options = new ChromeOptions();
-        options.addArguments("--remote-allow-origins=*");
-        driver = new ChromeDriver(options);
-        driver.manage().window().maximize();
-        driver.get("https://demowebshop.tricentis.com/");
+    protected String password = "Password123";
 
-    }
+
+
     @Test
-    public void testOne(){
-        homePage.navigateTo();
-        homePage.clickLogin();
-        loginPage.ValidateLoginButton();
+    public void testOne() {
+        app.homePage.navigateTo();
+        app.homePage.clickLogin();
+        app.loginPage.ValidateLoginButton();
         //Encapsulation of email and password values(reusing)
-        loginPage.Login(email,password);
-
-
-        driver.findElement(By.xpath("//a[text()='Log in']")).click();
-
-
-
+        app.loginPage.Login(email, password);
+        Assertions.assertTrue(app.homePage.user(email));
+        //$25 Virtual Gift Card//Simple Computer//14.1-inch Laptop
+        app.homePage.addToCart("Laptop");
 
 
 
+        app.homePage.clickLogout();
 
-        driver.close();
-        driver.quit();
 
 
     }
 
 
-    }
+}
+
+
 
 
 
